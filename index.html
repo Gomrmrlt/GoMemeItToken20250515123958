@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarkHero: The Final Stand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFA500;
+            --secondary: #8B4513;
+            --accent: #FFD700;
+            --dark: #2C2416;
+            --light: #FFF8E7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('./logo.webp') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+        
+        .hero-content {
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Bangers', cursive;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 0 var(--primary);
+            color: white;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .barkdog {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 2rem;
+            background: url('./logo.webp') center/contain no-repeat;
+            position: relative;
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFF8E7" fill-opacity="1" d="M0,160L48,138.7C96,117,192,75,288,69.3C384,64,480,96,576,133.3C672,171,768,213,864,208C960,203,1056,149,1152,117.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+            border: 3px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .cta-button:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border: 2px solid var(--accent);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px) rotate(10deg);
+            color: var(--dark);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            text-shadow: 1px 1px 1px var(--accent);
+        }
+        
+        .lore {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            background: rgba(255, 165, 0, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px dashed var(--primary);
+            position: relative;
+        }
+        
+        .lore::before {
+            content: "😢 WOOF";
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        /* Roadmap */
+        .roadmap {
+            padding: 6rem 0;
+            background-color: var(--dark);
+            color: white;
+            position: relative;
+        }
+        
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23FFF8E7" fill-opacity="1" d="M0,192L48,181.3C96,171,192,149,288,133.3C384,117,480,107,576,128C672,149,768,203,864,224C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>');
+            background-size: cover;
+        }
+        
+        .roadmap-title {
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .stages {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .stage {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+        
+        .stage:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: rgba(255,165,0,0.2);
+        }
+        
+        .stage-number {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.05);
+            z-index: 0;
+        }
+        
+        .stage-title {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            color: var(--primary);
+        }
+        
+        .stage-items {
+            position: relative;
+            z-index: 1;
+            text-align: left;
+            list-style-type: none;
+        }
+        
+        .stage-items li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .stage-items li::before {
+            content: "🐾";
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Tokenomics */
+        .tokenomics {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .tokenomics::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%232C2416" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,160C384,139,480,117,576,128C672,139,768,181,864,213.3C960,245,1056,267,1152,261.3C1248,256,1344,224,1392,208L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+        
+        .token-chart {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+        
+        .token-chart img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .token-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .token-detail {
+            flex: 1;
+            min-width: 250px;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .token-detail:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .token-percentage {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .token-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .token-description {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        /* How to Buy */
+        .how-to-buy {
+            padding: 6rem 0;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .how-to-buy-title {
+            color: var(--accent);
+            margin-bottom: 3rem;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            background: rgba(255,165,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .step-description {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 4rem 0 2rem;
+            background-color: var(--dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 2rem auto;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            font-style: italic;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .barkdog {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .stage, .token-detail, .step {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="barkdog"></div>
+            <h1 class="hero-title">BarkHero: The Final Stand</h1>
+            <p class="hero-subtitle">A meme, a memory, a legend. BarkHero defends you, even in death.</p>
+            <a href="#" class="cta-button">Buy $BARK</a>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fas fa-paw"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">The Legend of BarkHero</h2>
+            <div class="lore">
+                <p>In a world where mobs seek to silence hope, BarkHero made his last stand protecting his owner. Though he fell, his legacy lives on as $BARK — a token of loyalty, strength, and eternal love. His sacrifice taught us the true meaning of courage, proving that even in the darkest times, heroes emerge from the most unexpected places.</p>
+                <p>Join us in commemorating BarkHero's sacrifice. Every $BARK transaction strengthens his legend and protects the community he died defending.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <h2 class="section-title roadmap-title">Hero's Journey</h2>
+            <div class="stages">
+                <div class="stage">
+                    <div class="stage-number">1</div>
+                    <h3 class="stage-title">The Call to Adventure</h3>
+                    <ul class="stage-items">
+                        <li>$BARK Token Launch</li>
+                        <li>Meme Creation Contests</li>
+                        <li>Loyalty Staking Program</li>
+                        <li>Initial Exchange Listings</li>
+                    </ul>
+                </div>
+                
+                <div class="stage">
+                    <div class="stage-number">2</div>
+                    <h3 class="stage-title">The Hero's Trials</h3>
+                    <ul class="stage-items">
+                        <li>Community Quests & Challenges</li>
+                        <li>Legendary Meme Battles</li>
+                        <li>NFT Tribute Gallery</li>
+                        <li>Partnership with Other Hero Tokens</li>
+                    </ul>
+                </div>
+                
+                <div class="stage">
+                    <div class="stage-number">3</div>
+                    <h3 class="stage-title">The Legend Lives On</h3>
+                    <ul class="stage-items">
+                        <li>BarkHeroverse Game Beta</li>
+                        <li>Loyalty Shrine (Honor Fallen Heroes)</li>
+                        <li>Real-World Dog Charity Program</li>
+                        <li>BarkHero DAO & Governance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tokenomics Section -->
+    <section class="tokenomics" id="tokenomics">
+        <div class="container">
+            <h2 class="section-title">$BARK Tokenomics</h2>
+            <div class="token-chart">
+                <img src="./logo.webp" alt="BARK Tokenomics Chart">
+            </div>
+            <div class="token-details">
+                <div class="token-detail">
+                    <div class="token-percentage">50%</div>
+                    <div class="token-title">Community & Rewards</div>
+                    <div class="token-description">Supporting loyal warriors and community-driven initiatives. Heroes are rewarded!</div>
+                </div>
+                
+                <div class="token-detail">
+                    <div class="token-percentage">30%</div>
+                    <div class="token-title">Liquidity & Exchanges</div>
+                    <div class="token-description">Ensuring stable trading and wide accessibility for all $BARK believers.</div>
+                </div>
+                
+                <div class="token-detail">
+                    <div class="token-percentage">20%</div>
+                    <div class="token-title">Development & Hero Lore</div>
+                    <div class="token-description">Funding the BarkHeroverse development and expanding the legend.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How to Buy Section -->
+    <section class="how-to-buy" id="buy">
+        <div class="container">
+            <h2 class="section-title how-to-buy-title">Join BarkHero's Army</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Get a Wallet</div>
+                    <div class="step-description">Download MetaMask or any ETH-compatible wallet. Your shield in the crypto battlefield!</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Go to DEX</div>
+                    <div class="step-description">Visit Uniswap or your favorite DEX. Prepare your ETH for the mighty swap!</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Swap ETH for $BARK</div>
+                    <div class="step-description">Enter contract address, set slippage to 5%, and become part of BarkHero's legend!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#buy">How to Buy</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#about">Story</a>
+            </div>
+            <div class="disclaimer">
+                $BARK is a meme token created for entertainment purposes. This is not financial advice. Always DYOR and invest responsibly. BarkHero's sacrifice was fictional, but his spirit lives on in all of us.
+            </div>
+            <p>© 2023 BarkHero. All rights reserved. Honoring loyalty forever.</p>
+        </div>
+    </footer>
+</body>
+</html>
